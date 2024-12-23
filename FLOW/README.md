@@ -117,8 +117,9 @@ While running the max flow algorithm, in each DFS or BFS iteration, it involves 
 <br>
 
 **Flow augmentation involves:**  
-**Forward edges:** Increasing the flow of each edge by the amount of the residual capacity of the augmenting path.  
-**Backward edges:** Decreasing the flow of each edge by the amount of the residual capacity of the augmenting path (you can consider this as cancelling or undoing flow of forward edge).
+**Forward edges:** Increasing the flow of each edge by the amount of the residual capacity of the augmenting path.  (In residual graph, decreasing residual capacity of edges, by the amount of the residual capacity of the augmenting path. (which is normally done in algorithms implementations).
+
+**Backward edges:** Decreasing the flow of each edge by the amount of the residual capacity of the augmenting path (you can consider this as cancelling or undoing flow of forward edge). (In residual graph, increasing residual capacity of edges, by the amount of the residual capacity of the augmenting path. (which is normally done in algorithms implementations).
 
 <img src ="images/9.png">
 
