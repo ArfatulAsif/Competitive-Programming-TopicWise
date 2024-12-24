@@ -12,7 +12,7 @@
 
 
 // Adjusting Dijkstra to accomodate negative edges:
-// For max flow algorithms we consider edges in reverse to undo flow if needed. In that case, we are gonna have to undo the cost too. That's why for reverse edge, cost is negative "graph[v].push_back({u, (int)graph[u].size()-1, 0, -cost, -id});"
+// For max flow algorithms we consider edges in reverse to undo flow if needed. In this case, we are gonna have to undo the cost too. That's why for reverse edge, cost is negative "graph[v].push_back({u, (int)graph[u].size()-1, 0, -cost, -id});"
 // Also, for some problems cost of edges might be given negative in the input.
 // As we know dijkstra algorithm does not works for negative edges, we need to make adjustment to the edge weight's so that they become non-negative. 
 // We shall use the same techniques that is used in johnson's algorithm for all pair shortest path in O(V^2 log V + VE)  [https://github.com/ArfatulAsif/Competitive-programming/blob/main/Johnson%E2%80%99s%20algorithm%20for%20All-pairs%20shortest%20paths.cpp]
