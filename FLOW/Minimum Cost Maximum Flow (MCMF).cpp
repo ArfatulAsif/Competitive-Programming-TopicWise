@@ -35,10 +35,9 @@
 // This code does not works if there is a negative cycle in the input. 
 
 
-// Also graph is 1 based. for 0 based adjust it.
+
 
 const int N = 1000;
-
 
 struct MCMF
 {
@@ -82,7 +81,7 @@ struct MCMF
 		dist[source] = 0;
 		vector<pair<int,edge>>AllEdges; // {u, edge(v,rev, residual_capacity, cost, id)}
 
-		for(int i=1;i<n;i++)  // vertex,  i < n because we already increased n by 1.
+		for(int i=0;i<n;i++)  // vertex,  i < n because we already increased n by 1.
 		{
 			for(auto &e: graph[i])
 			{
@@ -92,7 +91,7 @@ struct MCMF
 
 		bool flag = true;
 
-		for(int i=1;i<n; i++)
+		for(int i=0;i<n-1; i++) // number of vertices, for zero based graph, i < n
 		{
 			flag = false;
 
@@ -129,7 +128,7 @@ struct MCMF
 
 		}
 
-		for(int i=1;i<n;i++)
+		for(int i=0;i<n;i++)
 		{
 			if(dist[i] < inf)
 			{
@@ -177,7 +176,7 @@ struct MCMF
 			}
 		}
 
-		for(int i=1;i<n;i++)
+		for(int i=0;i<n;i++)
 		{
 			if(dist[i] < inf)
 			{
@@ -185,7 +184,7 @@ struct MCMF
 			}
 		}
 
-		for(int i=1;i<n;i++)
+		for(int i=0;i<n;i++)
 		{
 			if(dist[i] < inf)
 			{
