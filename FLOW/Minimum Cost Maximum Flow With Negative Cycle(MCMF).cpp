@@ -3,6 +3,11 @@
 // Really fast in practice, 3e4 edges are fine.
 // Operates on integers, costs are multiplied by N!!
 
+
+
+
+// this is shohage vais code, I didnot understand this ... When I do I will write one.
+
 #include<bits/stdc++.h>
 using namespace std;
 
