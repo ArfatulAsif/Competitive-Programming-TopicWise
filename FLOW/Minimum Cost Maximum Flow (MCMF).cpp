@@ -241,22 +241,7 @@ struct MCMF
 	                        
 	                }
 	                            
-	 
-	                if(total_flow_sent + augmenting_path_flow >= target_flow)
-	                {
-	                        int take = target_flow - total_flow_sent;
-	                        total_cost += (take*cost_per_unit_of_flow_from_source_to_sink);
-	                        total_flow_sent = target_flow;
-	                        break;
-	                }
-	                else 
-	                {
-	                        total_flow_sent += augmenting_path_flow;
-
-	                        total_cost += (augmenting_path_flow*cost_per_unit_of_flow_from_source_to_sink);
-	                }
-	 
-	 
+	 	                	 
 	 		//adjust the residual capacity 
 
 	                v = sink;	                
@@ -272,6 +257,21 @@ struct MCMF
 
 	                        v = parent[v].first;
 	                        
+	                }
+
+
+	                if(total_flow_sent + augmenting_path_flow >= target_flow)
+	                {
+	                        int take = target_flow - total_flow_sent;
+	                        total_cost += (take*cost_per_unit_of_flow_from_source_to_sink);
+	                        total_flow_sent = target_flow;
+	                        break;
+	                }
+	                else 
+	                {
+	                        total_flow_sent += augmenting_path_flow;
+
+	                        total_cost += (augmenting_path_flow*cost_per_unit_of_flow_from_source_to_sink);
 	                }
 
 		}
