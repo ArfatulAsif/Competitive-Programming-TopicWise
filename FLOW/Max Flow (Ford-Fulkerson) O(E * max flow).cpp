@@ -7,6 +7,9 @@
 // For understanding the complexity checkout the: Max Flow (Edmonds-Karp) O(V * E^2).cpp
 
 
+
+// Algorithm : In each iteration Find an augmenting path using DFS, then do flow augmentation through its edges.  [Flow augmentation = reduce forward edges residual capacity, increase reverse edges residual capacity]
+
 const int N = 1000;
 
 struct edge
