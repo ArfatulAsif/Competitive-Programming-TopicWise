@@ -13,7 +13,25 @@
 
 // Adjusting Dijkstra to accomodate negative edges:
 // For max flow algorithms we consider edges in reverse to undo flow if needed. In that case, we are gonna have to undo the cost too. That's why for reverse edge, cost is negative "graph[v].push_back({u, (int)graph[u].size()-1, 0, -cost, -id});"
+// Also, for some problems cost of edges might be given negative in the input.
+// As we know dijkstra algorithm does not works for negative edges, we need to make adjustment to the edge weight's so that they become non-negative. 
+// We shall use the same techniques that is used in johnson's algorithm for all pair shortest path in O(V^2 log V + VE)  [https://github.com/ArfatulAsif/Competitive-programming/blob/main/Johnson%E2%80%99s%20algorithm%20for%20All-pairs%20shortest%20paths.cpp]
+// Using a bellman-ford to shift edges , new weight = w(u, v) + h[u] - h[v]. in this case u = source
+// Here the potential function h[] is used to "normalize" the graph by shifting the edge weights in such a way that all edges have non-negative weights.
+// Then perform Repeated Dijkstra
+// After each Dijkstra retrieve distance(u,v) = dijkstra(u, v) + h[v] - h[u]. u = source.
+// Here distance(source,sink) = minimum cost of sending 1 unit of flow from source to sink
+// Then update the potential function h[]. And repeat Dijkstra untill no augmenting path found/target_flow achieved.
 
+
+
+
+
+
+
+// Property of this code:
+// Works for both directed, undirected and with negative cost (in the input) too.
+// Complexity: O(min(E^2 *V log V, E logV * flow))
 
 
 const int N = 1000;
