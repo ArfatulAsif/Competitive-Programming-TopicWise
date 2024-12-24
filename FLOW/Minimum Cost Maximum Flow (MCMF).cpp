@@ -34,6 +34,9 @@
 // Complexity: O(min(E^2 *V log V, E logV * flow))
 // This code does not works if there is a negative cycle in the input. 
 
+
+// Also graph is 1 based. for 0 based adjust it.
+
 const int N = 1000;
 
 
