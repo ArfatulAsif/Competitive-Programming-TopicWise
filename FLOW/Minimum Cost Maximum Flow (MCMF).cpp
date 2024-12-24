@@ -32,7 +32,7 @@
 // Property of this code:
 // Works for both directed, undirected and with negative cost (in the input) too.
 // Complexity: O(min(E^2 *V log V, E logV * flow))
-
+// This code does not works if there is a negative cycle in the input. 
 
 const int N = 1000;
 
