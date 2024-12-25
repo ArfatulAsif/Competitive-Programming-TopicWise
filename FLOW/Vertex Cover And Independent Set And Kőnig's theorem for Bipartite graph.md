@@ -90,7 +90,20 @@ For example in the above graph **I = {1, 4}** is a maximum independent set. or *
 
 <br>
 <br>
+
+**Example for an bipartite graph:**
 <br>
+
+<img src ="images/Independent_bipartite1.png">
+
+The **left** vertices set or **right** vertices set can be considered an **independent set**. But maximum independent set could be different. 
+<br>
+
+<img src ="images/Independent_bipartite2.png">
+
+Maximum Independent set......
+<br>
+<img src ="images/Independent_bipartite3.png">
 
 
 ---
@@ -133,6 +146,8 @@ They are excatly opposite/complement of each other, ie. **I = {V - V_c} or V_c =
 
 <br>
 For proof check the example section of : https://en.wikipedia.org/wiki/K%C5%91nig%27s_theorem_(graph_theory)#Example
+<br>
+Also check this video : https://www.youtube.com/watch?v=K-g5AzHACWs
 <br>
 
 
