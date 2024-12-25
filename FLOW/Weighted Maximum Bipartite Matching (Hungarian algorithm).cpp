@@ -5,6 +5,7 @@
    - Maximum Cost Maximum Matching: Negates the costs and returns the negated result. [ add_edge(u, v, -cost) and cout<<(-M.MaximumBipartiteMatching())<<endl]
    - Works for 1-indexed input. Both left and right is 1 based, no need to do v += left_size */
 
+// I didn't understand the algorithm, but I can use it.
 
 const int N = 509;
 
