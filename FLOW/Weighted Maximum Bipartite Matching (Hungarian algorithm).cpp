@@ -11,7 +11,11 @@ const int N = 509;
 struct Hungarian 
 {
         int c[N][N], fx[N], fy[N], d[N];
-        int l[N], r[N], arg[N], trace[N];
+
+        int left_i_connected_to_right[N]; 
+        int right_i_connected_to_left[N];
+
+        int arg[N], trace[N];
         queue<int> q;
         int start, finish, n;
 
@@ -21,7 +25,8 @@ struct Hungarian
         {
                 for (int i = 1; i <= n; ++i) 
                 {
-                        fy[i] = l[i] = r[i] = 0;
+                        fy[i] = left_i_connected_to_right[i] = right_i_connected_to_left[i] = 0;
+                        
                         for (int j = 1; j <= n; ++j) 
                         {
                                 c[i][j] = inf; // Set to 0 for maximum cost matching
@@ -68,12 +73,12 @@ struct Hungarian
                                         if (!w) 
                                         {
                                                 trace[v] = u;
-                                                if (!r[v]) 
+                                                if (!right_i_connected_to_left[v]) 
                                                 {
                                                         finish = v;
                                                         return;
                                                 }
-                                                q.push(r[v]);
+                                                q.push(right_i_connected_to_left[v]);
                                         }
                                         if (d[v] > w) 
                                         {
@@ -102,7 +107,7 @@ struct Hungarian
                 {
                         if (trace[v]) 
                         {
-                                int u = r[v];
+                                int u = right_i_connected_to_left[v];
                                 fy[v] -= delta;
                                 fx[u] += delta;
                         } 
@@ -116,12 +121,12 @@ struct Hungarian
                         if (!trace[v] && !d[v]) 
                         {
                                 trace[v] = arg[v];
-                                if (!r[v]) 
+                                if (!right_i_connected_to_left[v]) 
                                 {
                                         finish = v;
                                         return;
                                 }
-                                q.push(r[v]);
+                                q.push(right_i_connected_to_left[v]);
                         }
                 }
         }
@@ -130,9 +135,9 @@ struct Hungarian
         {
                 do {
                         int u = trace[finish];
-                        int next = l[u];
-                        l[u] = finish;
-                        r[finish] = u;
+                        int next = left_i_connected_to_right[u];
+                        left_i_connected_to_right[u] = finish;
+                        right_i_connected_to_left[finish] = u;
                         finish = next;
                 } while (finish);
         }
@@ -170,8 +175,8 @@ struct Hungarian
                 int ans = 0;
                 for (int i = 1; i <= n; ++i) 
                 {
-                        if (c[i][l[i]] != inf) ans += c[i][l[i]];
-                        else l[i] = 0;
+                        if (c[i][left_i_connected_to_right[i]] != inf) ans += c[i][left_i_connected_to_right[i]];
+                        else left_i_connected_to_right[i] = 0;
                 }
                 return ans;
         }
@@ -180,13 +185,23 @@ struct Hungarian
         vector<pair<int,int>>  FindBipartiteMatching(int left_size, int right_size)
         {
         	vector<pair<int,int>>matching;
+        	
         	for(int i=1;i<=left_size;i++)
         	{
-        		if(l[i] != 0) // l[i] = left i, is connected to l[i] in right
+        		if(left_i_connected_to_right[i]!=0)
         		{
-        			matching.push_back({i, l[i]});
+        			matching.push_back({i,left_i_connected_to_right[i]});
         		}
         	}
+
+        	// Or we can use below part, either one is fine.
+        	// for(int i=1;i<=right_size;i++)
+        	// {
+        	// 	if(right_i_connected_to_left[i] != 0) 
+        	// 	{
+        	// 		matching.push_back({right_i_connected_to_left[i], i});
+        	// 	}
+        	// }
 
         	return matching;
         }
