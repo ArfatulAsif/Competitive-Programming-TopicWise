@@ -7,7 +7,7 @@
 // Our target can be Minimum Weighted Maximum Bipartite Matching or Maximum Weighted Maximum Bipartite Matching.
 // This code is for Minimum Weighted Maximum Bipartite Matching.
 
-// To adjust it for Maximum Weighted Maximum Bipartite Matching,  take cost as -cost. And answer is -mcmf.MinimumCostMaximumFlow(source,sink,target_flow).second
+// This will not work for Maximum weighted Maximum Bipartite Matching, [ Like in Hungarian Algorithm for maximum weighted, we take -cost and return answer as -MinimumCostMaxFlow().second. For dijkstra it will not work, as it might form negative cycle]
 
 const int N = 1000;
 
