@@ -195,6 +195,7 @@ https://cses.fi/problemset/task/1696/
 
 ===================================  Hopcroft-Karp algorithm [For regular use] ===================
 
+    
 // It has time complexity of O(E*√V). Which is extremely fast
 // Recommended for regular use
 // Here is the resource for Hopcroft-Karp:  https://brilliant.org/wiki/hopcroft-karp/
@@ -206,7 +207,9 @@ const int N = 3e5 + 9;
 struct HopcroftKarp
 {
         int left_size, right_size;
-        vector<int> left, right, level;
+        vector<int> left_i_is_connected_to_right;
+        vector<int> right_i_is_connected_to_left;
+        vector<int> level;
         vector<vector<int>> graph;
 
         HopcroftKarp(int _n, int _m)
@@ -215,14 +218,14 @@ struct HopcroftKarp
                 right_size = _m;
                 int p = _n + _m + 1;
                 graph.resize(p);
-                left.resize(p, 0);
-                right.resize(p, 0);
+                left_i_is_connected_to_right.resize(p, 0);
+                right_i_is_connected_to_left.resize(p, 0);
                 level.resize(p, 0);
         }
 
         void addEdge(int u, int v)
         {
-                graph[u].push_back(v + left_size); // right id is increased by left_size
+                graph[u].push_back(v + left_size); // right vertex is increased by left_size here..
         }
 
         bool bfs()
@@ -231,7 +234,7 @@ struct HopcroftKarp
 
                 for (int u = 1; u <= left_size; u++)
                 {
-                        if (!left[u])
+                        if (!left_i_is_connected_to_right[u])
                         {
                                 level[u] = 0;
                                 q.push(u);
@@ -251,10 +254,10 @@ struct HopcroftKarp
 
                         for (auto v : graph[u])
                         {
-                                if (level[right[v]] == inf)
+                                if (level[right_i_is_connected_to_left[v]] == inf)
                                 {
-                                        level[right[v]] = level[u] + 1;
-                                        q.push(right[v]);
+                                        level[right_i_is_connected_to_left[v]] = level[u] + 1;
+                                        q.push(right_i_is_connected_to_left[v]);
                                 }
                         }
                 }
@@ -271,10 +274,10 @@ struct HopcroftKarp
 
                 for (auto v : graph[u])
                 {
-                        if (level[right[v]] == level[u] + 1 && dfs(right[v]))
+                        if (level[right_i_is_connected_to_left[v]] == level[u] + 1 && dfs(right_i_is_connected_to_left[v]))
                         {
-                                left[u] = v;
-                                right[v] = u;
+                                left_i_is_connected_to_right[u] = v;
+                                right_i_is_connected_to_left[v] = u;
                                 return true;
                         }
                 }
@@ -292,7 +295,7 @@ struct HopcroftKarp
                 {
                         for (int u = 1; u <= left_size; u++)
                         {
-                                if (!left[u] && dfs(u))
+                                if (!left_i_is_connected_to_right[u] && dfs(u))
                                 {
                                         ans++;
                                 }
@@ -308,9 +311,9 @@ struct HopcroftKarp
 
                 for (int u = 1; u <= left_size; u++)
                 {
-                        if (left[u])
+                        if (left_i_is_connected_to_right[u])
                         {
-                                matching.push_back({u, left[u] - left_size}); // subtract left_size to get original right-side vertex
+                                matching.push_back({u, left_i_is_connected_to_right[u] - left_size}); // subtract left_size to get original right-side vertex
                         }
                 }
 
@@ -351,9 +354,5 @@ int32_t main()
         return 0;
 }
 
-
-
-// https://cses.fi/problemset/task/1711
-
-
+//  https://cses.fi/problemset/task/1696/
 
