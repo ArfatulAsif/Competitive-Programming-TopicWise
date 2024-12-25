@@ -45,7 +45,14 @@ For example in the graph, **V_c = \{2, 3, 5\}** is a minimum vertex cover.
 ---
 
 
+# Independent Set:
+<br>
 
+**An independent set in a graph is a set of vertices such that no edge in the graph connects any pair of vertices in the independent set.**
+
+<img src="images/vertex_cover1.png">
+
+For example in the graph, vertex set **I = {1, 4}**, 
 
 
 
