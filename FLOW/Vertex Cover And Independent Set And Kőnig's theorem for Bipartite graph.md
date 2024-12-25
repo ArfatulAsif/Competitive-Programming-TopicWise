@@ -74,6 +74,38 @@ But **Set {1, 4, 5} or {1, 2, 3}** is not an independent set. As we can see, an 
 <br>
 <br>
 
+**Finding any independent set is very easy, as any single vertex set can serve as an independent set. example I = {1} or I = {2} ..**
+<br>
+**But the real challenge lies in finding the maximum independent set.**
 
+<br>
+<br>
+
+# Maximum Independent Set:
+<br>
+
+**An independent set is maximum if no other independent set contains more vertices.**
+<br>
+For example in the above graph **I = {1, 4}** is a maximum independent set. or **I = {1, 3}**. 
+
+<br>
+<br>
+<br>
+
+
+---
+
+# The minimum vertex cover is the exact opposite of the maximum independent set:
+<br>
+
+**In a graph, the vertices in the maximum independent set are precisely those not included in the minimum vertex cover, and vice versa.**
+
+<br>
+
+For example minimum vertex cover **V_c = \{2, 3, 5\}** and maximum independent set **I = {1, 4}**. <br>
+They are excatly opposite of each other, ie. **I = V - V_c or V_c = V - I**.
+
+
+<img src="images/vertex_cover3_235.jpg">  <img src="images/independent_set1.png">
 
 
