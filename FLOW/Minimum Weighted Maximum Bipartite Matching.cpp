@@ -1,7 +1,6 @@
 
 // For weighted Maximum Bipartite Matching We use Minimum Cost Maximum Flow code.
 // Complexity is O(min(E^2 *V log V, E logV * flow)), sometimes number of edges |E| can be large, but flow can be small, so this still applies
-// There is an algorithm called Hungarian Algorithm, which has complexity O(V^3). Check Sohag vai.
 
 
 // Our target can be Minimum Weighted Maximum Bipartite Matching or Maximum Weighted Maximum Bipartite Matching.
