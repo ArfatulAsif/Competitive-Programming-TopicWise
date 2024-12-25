@@ -81,7 +81,7 @@ But **Set {1, 4, 5} or {1, 2, 3}** is not an independent set. As we can see, an 
 <br>
 <br>
 
-# Maximum Independent Set:
+## Maximum Independent Set:
 <br>
 
 **An independent set is maximum if no other independent set contains more vertices.**
@@ -102,10 +102,48 @@ For example in the above graph **I = {1, 4}** is a maximum independent set. or *
 
 <br>
 
-For example minimum vertex cover **V_c = \{2, 3, 5\}** and maximum independent set **I = {1, 4}**. <br>
-They are excatly opposite of each other, ie. **I = V - V_c or V_c = V - I**.
+For example minimum vertex cover **V_c = {2, 3, 5}** and maximum independent set **I = {1, 4}**. <br>
+They are excatly opposite/complement of each other, ie. **I = {V - V_c} or V_c = {V - I}**.
 
 
 <img src="images/vertex_cover3_235.jpg">  <img src="images/independent_set1.png">
+
+
+
+<br>
+<br>
+
+**For a graph, if we find the minimum vertex cover, we can also determine the maximum independent set by simply taking the complement of the minimum vertex cover.**
+
+
+<br>
+<br>
+
+**However, finding the minimum vertex cover or the maximum independent set for any graph is an NP-hard problem.**
+
+<br>
+
+**However, things become interesting when we consider a bipartite graph.**
+
+<br>
+
+---
+
+# Kőnig's theorem: In any bipartite graph, the number of edges in a maximum matching |M|, equals the number of vertices in a minimum vertex cover |V_c|.
+
+<br>
+For proof check the example section of : https://en.wikipedia.org/wiki/K%C5%91nig%27s_theorem_(graph_theory)#Example
+<br>
+
+
+
+
+
+
+
+
+
+
+
 
 
