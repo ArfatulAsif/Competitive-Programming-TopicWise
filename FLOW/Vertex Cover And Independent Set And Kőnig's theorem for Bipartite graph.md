@@ -27,8 +27,12 @@ But **V_c = \{1, 2, 5\}** is **not** a vertex cover, because as we can see below
 <img src="images/vertex_cover2.png">
 
 <br> 
+<br>
+<br>
 
 **Finding any vertex cover set is a simple task because the set of all vertices always serves as a vertex cover surely. However, the real challenge lies in finding the minimum vertex cover.**
+
+<br>
 
 ## Minimum Vertex Cover:
 <br>
@@ -64,6 +68,12 @@ For example in the graph, vertex set **I = {1, 4}** or **I = {1, 3}** is an inde
 But **Set {1, 4, 5} or {1, 2, 3}** is not an independent set. As we can see, an edge connect the pair of vertices (4, 5) which are in **{1, 4, 5}** and two edges connets the pairs of vertices (1, 2) and (2, 3) which are in **{1, 2, 3**.
 
 <img src="images/independent_set3.png"> <img src="images/independent_set4.png">
+
+
+<br>
+<br>
+<br>
+
 
 
 
