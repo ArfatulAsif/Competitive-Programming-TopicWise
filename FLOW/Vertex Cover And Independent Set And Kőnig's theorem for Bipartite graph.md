@@ -101,7 +101,7 @@ The **left** vertices set or **right** vertices set can be considered an **indep
 
 <img src ="images/Independent_bipartite2.png">
 
-Maximum Independent set......
+These independent set contains **3** vertices, But below the Maximum Independent set contains **4** vertices......
 <br>
 <img src ="images/Independent_bipartite3.png">
 
