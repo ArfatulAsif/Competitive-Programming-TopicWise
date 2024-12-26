@@ -199,7 +199,15 @@ For proof check the example section of : https://en.wikipedia.org/wiki/K%C5%91ni
 For proof of this algorithm check this out: https://www.youtube.com/watch?v=K-g5AzHACWs
 <br>
 
+---
+For some sort of understanding: It is clear that exactly **one endpoint** of each **matching edge** must be in the minimum vertex cover. If not consider a matching edge from left to right (a)----------(b). If neither vertex (a) nor (b) is in the vertex cover, then the edge (a)--------(b) will not be covered. Therefore, either vertex (a) or vertex (b) must be included in the minimum vertex cover, but not both, as we are looking for a minimum cover. The question then arises: how do we decide which one to include? This is done by using an alternating edge traversal.
 
+---
+The minimum vertex cover consist of:
+ - All unmarked vertices in **Left**. (If an unmarked vertex in Left were excluded from the vertex cover, it would leave the matching edge connected to this vertex uncovered, violating the definition of a vertex cover.)
+
+ - All marked vertices in **Right** (If a marked vertex in Right were excluded from the vertex cover, the edge between that vertex and the unmarked vertex in Left would remain uncovered.)
+---
 
 # Code: 
 
