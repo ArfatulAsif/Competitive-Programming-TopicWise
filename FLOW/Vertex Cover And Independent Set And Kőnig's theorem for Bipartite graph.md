@@ -174,19 +174,27 @@ For proof check the example section of : https://en.wikipedia.org/wiki/K%C5%91ni
    - For the graph above, this traversing would look like:
    - (A1)-----(B1)**------**(A2)------(B2)**--------**(A3)
 
+<br>
+
 3. **Mark Vertices**:
-   - After the BFS/DFS, mark all vertices in **Left** that are reachable from an unmatched vertex in **Left** via alternating paths (using both matched and unmatched edges).
+   - After the BFS/DFS, mark all vertices in **Left** that are reachable starting from an unmatched vertex in **Left** via alternating paths (using unmatched---matched edges--unmatched edges.... exploration).
    - Also, mark all vertices in **Right** that are connected to the marked vertices in **Left** by a matching edge.
+   <br>
+   <img src="images/konigs_3.png">
+   <br>
 
 4. **Identify the Minimum Vertex Cover**:
    - The minimum vertex cover will consist of:
      - All unmarked vertices in **Left** (since they are not reachable by alternating paths).
      - All marked vertices in **Right** (since they are connected to unmarked vertices in **Left** by a matching edge).
+   <br>
+   <img src="images/konigs_4.png">
+   <br>
 
 5. **Output the Minimum Vertex Cover**:
    - The set of vertices identified in the previous step forms the minimum vertex cover.
+   For the above graph, it is **V_c = {A4, A5, B1, B2}.**
 
-This method efficiently finds the minimum vertex cover by utilizing the relationship between matchings and vertex covers in bipartite graphs, as established by Kőnig's theorem.
 
 
 
