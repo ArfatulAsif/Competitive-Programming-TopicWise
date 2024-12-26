@@ -147,6 +147,62 @@ They are excatly opposite/complement of each other, ie. **I = {V - V_c} or V_c =
 <br>
 For proof check the example section of : https://en.wikipedia.org/wiki/K%C5%91nig%27s_theorem_(graph_theory)#Example
 <br>
+
+
+
+---
+
+<br>
+
+# Find Minimum Vertex Cover in a Bipartite Graph Algorithm:
+<br>
+
+1. **Find the Maximum Matching**:
+   - Use an algorithm like the **Hopcroft-Karp algorithm** or the **Edmonds-Karp algorithm** to find the maximum matching in the bipartite graph. This will give you the set of edges that form the matching. For contest use **Hopcroft-Karp algorithm**, as it is **O(E*√V)**.
+<br>
+<img src="images/konigs_1.png">
+<br>
+
+2. **Construct the Alternating Forest ( (left)--unmatching_edge--(right)--matching_edge--(left)--unmatching_edge--(right)--..**:
+   - Start with all unmatched vertices in the **Left** set of the bipartite graph. For example in the graph below, **A1** is not an endpoint of a matching edge.
+   <br>
+   <img src="images/konigs_1.png">
+   <br>
+   
+   - Perform a BFS or DFS to explore alternating paths starting from the unmatched vertices in **Left**. Alternate between edges that are not part of the matching and edges that are part of the matching.
+   - Mark all vertices visited during this exploration.
+   - For the graph above, this traversing would look like:
+   - (A1)-----(B1)**------**(A2)------(B2)**--------**(A3)
+
+3. **Mark Vertices**:
+   - After the BFS/DFS, mark all vertices in **Left** that are reachable from an unmatched vertex in **Left** via alternating paths (using both matched and unmatched edges).
+   - Also, mark all vertices in **Right** that are connected to the marked vertices in **Left** by a matching edge.
+
+4. **Identify the Minimum Vertex Cover**:
+   - The minimum vertex cover will consist of:
+     - All unmarked vertices in **Left** (since they are not reachable by alternating paths).
+     - All marked vertices in **Right** (since they are connected to unmarked vertices in **Left** by a matching edge).
+
+5. **Output the Minimum Vertex Cover**:
+   - The set of vertices identified in the previous step forms the minimum vertex cover.
+
+This method efficiently finds the minimum vertex cover by utilizing the relationship between matchings and vertex covers in bipartite graphs, as established by Kőnig's theorem.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
 Also check this video : https://www.youtube.com/watch?v=K-g5AzHACWs
 <br>
 
