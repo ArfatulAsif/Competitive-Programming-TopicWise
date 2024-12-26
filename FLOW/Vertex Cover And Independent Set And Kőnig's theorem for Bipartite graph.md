@@ -502,7 +502,7 @@ int32_t main()
         }
 
 
-        HK.MaximumBipartiteMatching(); // we need to call it
+        HK.MaximumBipartiteMatching(); // we need to call it First...
 
         vector<pair<int,char>> min_vertex_cover = HK.FindMinimumVertexCover();
 
