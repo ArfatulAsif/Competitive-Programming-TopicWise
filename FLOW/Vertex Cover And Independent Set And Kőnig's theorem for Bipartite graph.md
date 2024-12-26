@@ -65,7 +65,7 @@ For example in the graph, vertex set **I = {1, 4}** or **I = {1, 3}** is an inde
 <img src="images/independent_set1.png"> <img src="images/independent_set2.png">
 
 
-But **Set {1, 4, 5} or {1, 2, 3}** is not an independent set. As we can see, an edge connect the pair of vertices (4, 5) which are in **{1, 4, 5}** and two edges connets the pairs of vertices (1, 2) and (2, 3) which are in **{1, 2, 3**.
+But **Set {1, 4, 5} or {1, 2, 3}** is not an independent set. As we can see, two edge connect the pair of vertices (4, 5) and (1, 5) which are in **{1, 4, 5}** and two edges connets the pairs of vertices (1, 2) and (2, 3) which are in **{1, 2, 3**.
 
 <img src="images/independent_set3.png"> <img src="images/independent_set4.png">
 
