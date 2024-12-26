@@ -210,3 +210,17 @@ This is exactly what max flow algorithms do, which is why they have polynomial c
 ---
 
 # Now you are ready for flow algorithms, you know all basic terminologies
+
+## Pathway:
+
+1. **Max flow Ford-Fulkerson (O(E * maxflow))**  
+2. **Max flow Edmond-karp (O(V * E^2))**  
+3. **Max flow Dinics (O(V^2*E)) preferred to use.**  
+4. **Minimum cut with dinics (O(V^2*E))**  
+5. **Maximum bipartite matching with dinics for learning (O(V^2*E))**  
+6. **Maximum bipartite matching hopcraft-karp (O(E * √V)) for use.**  
+7. **Minimum cost Maximum Flow using Dijkstra, without negative cycle (O(min(E^2 * V log V, E log V * flow)))**  
+8. **Minimum Weighted Maximum Bipartite Matching using MCMF ([O(min(E^2 * V log V, E log V * flow)))**  
+9. **Weighted Maximum Bipartite Matching Hungarian (O(V^3))**  
+10. **Vertex Cover & Independent Set topic learning.**  
+11. **Minimum Vertex Cover/Maximum Independent Set in a Bipartite graph using hopcroft-karp (O(E * √V))**  
