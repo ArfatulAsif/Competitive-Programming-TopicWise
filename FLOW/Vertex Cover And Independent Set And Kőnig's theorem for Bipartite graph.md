@@ -166,7 +166,7 @@ For proof check the example section of : https://en.wikipedia.org/wiki/K%C5%91ni
 2. **Construct the Alternating Forest ( (left)--unmatching_edge--(right)--matching_edge--(left)--unmatching_edge--(right)--..**:
    - Start with all unmatched vertices in the **Left** set of the bipartite graph. For example in the graph below, **A1** is not an endpoint of a matching edge.
    <br>
-   <img src="images/konigs_1.png">
+   <img src="images/konigs_2.png">
    <br>
    
    - Perform a BFS or DFS to explore alternating paths starting from the unmatched vertices in **Left**. Alternate between edges that are not part of the matching and edges that are part of the matching.
@@ -195,24 +195,14 @@ For proof check the example section of : https://en.wikipedia.org/wiki/K%C5%91ni
    - The set of vertices identified in the previous step forms the minimum vertex cover.
    For the above graph, it is **V_c = {A4, A5, B1, B2}.**
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <br>
-Also check this video : https://www.youtube.com/watch?v=K-g5AzHACWs
+For proof of this algorithm check this out: https://www.youtube.com/watch?v=K-g5AzHACWs
 <br>
+
+
+
+# Code: 
+
 
 
 
