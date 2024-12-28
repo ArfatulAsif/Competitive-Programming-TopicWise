@@ -1,7 +1,7 @@
 
 /* Hungarian Algorithm:
    - Complexity: O(V^3), optimized for both minimum and maximum cost maximum matching.
-   - Minimum Cost Maximum Matching: Uses original costs. [Also c[i][j] = inf]
+   - Minimum Cost Maximum Matching: Uses original costs. [ Also set, c[i][j] = inf]
    - Maximum Cost Maximum Matching: Negates the costs and returns the negated result. [ add_edge(u, v, -cost) and cout<<(-M.WeightedBipartiteMatching())<<endl] And [c[i][j] = 0]
    - Works for 1-indexed input. Both left and right is 1 based, no need to do v += left_size */
 
