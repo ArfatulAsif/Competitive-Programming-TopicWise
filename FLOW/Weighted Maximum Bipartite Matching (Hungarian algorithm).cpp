@@ -1,11 +1,12 @@
 
 /* Hungarian Algorithm:
    - Complexity: O(V^3), optimized for both minimum and maximum cost maximum matching.
-   - Minimum Cost Maximum Matching: Uses original costs.
-   - Maximum Cost Maximum Matching: Negates the costs and returns the negated result. [ add_edge(u, v, -cost) and cout<<(-M.MaximumBipartiteMatching())<<endl]
+   - Minimum Cost Maximum Matching: Uses original costs. [Also c[i][j] = inf]
+   - Maximum Cost Maximum Matching: Negates the costs and returns the negated result. [ add_edge(u, v, -cost) and cout<<(-M.WeightedBipartiteMatching())<<endl] And [c[i][j] = 0]
    - Works for 1-indexed input. Both left and right is 1 based, no need to do v += left_size */
 
 // I didn't understand the algorithm, but I can use it.
+
 
 const int N = 509;
 
@@ -30,7 +31,7 @@ struct Hungarian
                         
                         for (int j = 1; j <= n; ++j) 
                         {
-                                c[i][j] = inf; // Set to 0 for maximum cost matching
+                                c[i][j] = 0; // Set to 0 for maximum cost matching
                         }
                 }
         }
@@ -143,7 +144,7 @@ struct Hungarian
                 } while (finish);
         }
 
-        int MaximumBipartiteMatching() 
+        int WeightedBipartiteMatching() 
         {
                 for (int u = 1; u <= n; ++u) 
                 {
@@ -185,69 +186,84 @@ struct Hungarian
 
         vector<pair<int,int>>  FindBipartiteMatching(int left_size, int right_size)
         {
-        	vector<pair<int,int>>matching;
-        	
-        	for(int i=1;i<=left_size;i++)
-        	{
-        		if(left_i_connected_to_right[i]!=0)
-        		{
-        			matching.push_back({i,left_i_connected_to_right[i]});
-        		}
-        	}
+                vector<pair<int,int>>matching;
+                
+                for(int i=1;i<=left_size;i++)
+                {
+                        if(left_i_connected_to_right[i]!=0)
+                        {
+                                matching.push_back({i,left_i_connected_to_right[i]});
+                        }
+                }
 
-        	// Or we can use below part, either one is fine.
-        	// for(int i=1;i<=right_size;i++)
-        	// {
-        	// 	if(right_i_connected_to_left[i] != 0) 
-        	// 	{
-        	// 		matching.push_back({right_i_connected_to_left[i], i});
-        	// 	}
-        	// }
+                // Or we can use below part, either one is fine.
+                // for(int i=1;i<=right_size;i++)
+                // {
+                //      if(right_i_connected_to_left[i] != 0) 
+                //      {
+                //              matching.push_back({right_i_connected_to_left[i], i});
+                //      }
+                // }
 
-        	return matching;
+                return matching;
         }
 };
 
 
 
-int32_t main() 
+
+int32_t main()
 {
-        ios_base::sync_with_stdio(0);
+        ios::sync_with_stdio(0);
         cin.tie(0);
 
-        int n;
-        cin>>n;
-
-        int left_size, right_size;
-
-        left_size = right_size = n; // for this problem
-
-        Hungarian M(left_size, right_size);
-
-        for(int i=1;i<=n;i++)
+        int t;
+        cin>>t;
+        for(int tt=1;tt<=t;tt++)
         {
-        	for(int j=1;j<=n;j++)
-        	{
-        		int cost;
-        		cin>>cost;
-        		M.add_edge(i,j,cost); // for Maximum Matching M.add_edge(i,j,-cost)
-        	}
+                int n;
+                cin>>n;
+                
+                int left_size, right_size;
+
+                left_size = right_size = n;
+
+                Hungarian M(left_size,right_size);
+
+                vector<int>v1,v2;
+                for(int i=0;i<n;i++)
+                {
+                        int a;
+                        cin>>a;
+                        v1.push_back(a);
+                }
+
+                for(int i=0;i<n;i++)
+                {
+                        int a;
+                        cin>>a;
+                        v2.push_back(a);
+                }
+
+                for(int i=0;i<n;i++)
+                {
+                        for(int j=0;j<n;j++)
+                        {
+                                if(v1[i]>v2[j])
+                                {
+                                        M.add_edge(i+1,j+1, -2); // -cost, so that it becomes maximum cost maximum bipartite matching . For minimum cost, dont negate
+                                }
+                                if(v1[i] == v2[j])
+                                {
+                                        M.add_edge(i+1,j+1,-1);
+                                }
+                        }
+                }
+
+
+                cout<<"Case "<<tt<<": "<<-M.WeightedBipartiteMatching()<<endl;  // maximum cost bipartite matching
         }
-
-        cout<<M.MaximumBipartiteMatching()<<endl;
-
-
-        vector<pair<int,int>>matching = M.FindBipartiteMatching(left_size,right_size);
-
-
-        for(auto x : matching)
-        {
-        	cout<<x.first<<" "<<x.second<<endl;
-        }
-
-        return 0;
-
 
 }
 
-// https://cses.fi/problemset/task/2129/
+// https://lightoj.com/problem/karate-competition
