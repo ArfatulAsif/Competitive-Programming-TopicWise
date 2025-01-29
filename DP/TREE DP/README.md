@@ -401,7 +401,7 @@ int dfs(int s, int par, int k)
 
          for(int i=0;i<=k-2;i++)
          {
-                // its a binary tree, so we send i - braches left and (k-2-i) - braches to right,  other 2 are used here
+                // its a binary tree, so we send i - braches left and (k-2-i) - braches to right,  other 2 branches are used to connect these both children
                 mx = max(mx, dfs(p1.first, s, i)+p1.second + dfs(p2.first, s, k-2-i)+p2.second);
          }
 
@@ -436,9 +436,106 @@ int32_t main()
 
 ```  
 
+<br>
+
+## Problem Statement : Tree Pruning (using dp with Euler Tour Flattening)
+
+[Tree Pruning](https://www.hackerrank.com/challenges/tree-pruning/problem)  
+
+We are given a **tree** with `n` vertices numbered from `1` to `n`, rooted at vertex `1`. Each vertex `i` has an **integer weight** `w[i]`. The **total weight** of the tree is the sum of the weights of all its nodes.  
+
+A **remove operation** deletes the **entire subtree** rooted at some node `v` from the tree. Our goal is to perform **at most k remove operations** to **maximize the total weight** of the remaining tree.  
+
+The task is to determine and print the **maximum possible total weight** of the tree after performing up to `k` removals.  
+
+
+### DP States  
+
+We use **Euler Tour Flattening** to represent the tree in an array form, which allows us to handle subtree removals efficiently.  
+
+Let `dp[i][j]` be the **maximum weight** that can be obtained considering **the first i nodes** in the flattened tree while performing **exactly j remove operations**.  
+
+- **Base Case:** `dp[1][0] = 0`, meaning no removals and no weight initially.  
+- We iterate over all `i` nodes and consider two choices:  
+  - **Not removing node i**: Add `w[i]` to the total weight.  
+  - **Removing node i**: Move to the end of its subtree (`dout[i]`) and increase the count of removals.  
+- The final answer is the maximum weight among all cases with at most `k` removals.  
 
 
 
+### Solution  
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 100;
+vector<int> graph[N];
+int ara[N];  // Node weights
+
+int dp[N][205];  // dp[i][j] = max weight using first i nodes with j removals
+int din[N], dout[N], node[N];
+int tim = 0;
+
+void dfs(int s, int par) {
+    din[s] = ++tim;
+    node[tim] = s;
+    for (auto child : graph[s]) {
+        if (child == par) continue;
+        dfs(child, s);
+    }
+    dout[s] = tim;
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    int n, k;
+    cin >> n >> k;
+
+    for (int i = 1; i <= n; i++) {
+        cin >> ara[i];
+    }
+
+    for (int i = 0; i < n - 1; i++) {
+        int x, y;
+        cin >> x >> y;
+        graph[x].push_back(y);
+        graph[y].push_back(x);
+    }
+
+    for (int i = 0; i <= n; i++) {
+        for (int j = 0; j <= k; j++) {
+            dp[i][j] = LLONG_MIN;  // Initialize to negative infinity
+        }
+    }
+
+    dfs(1, 0);
+
+    dp[1][0] = 0;
+
+    for (int i = 1; i <= n; i++) {
+        int s = node[i];
+        for (int j = 0; j <= k; j++) {
+            // Not removing node s
+            dp[i + 1][j] = max(dp[i + 1][j], dp[i][j] + ara[s]);
+
+            // Removing the subtree rooted at s
+            if (j + 1 <= k) {
+                dp[dout[s] + 1][j + 1] = max(dp[dout[s] + 1][j + 1], dp[i][j]);
+            }
+        }
+    }
+
+    int ans = 0;
+    for (int j = 0; j <= k; j++) {
+        ans = max(ans, dp[n + 1][j]);
+    }
+
+    cout << ans << endl;
+}
+```  
 
 
 
