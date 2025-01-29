@@ -338,7 +338,7 @@ The tree is rooted at **node 1** and consists of **N nodes** (2 ≤ N ≤ 100). 
 
 ### DP States : dp[s][k] 
 
-Let `dp[s][k]` be the **maximum number of apples** that can be preserved in the **subtree of node s** while keeping exactly `k` branches.  
+Let `dp[s][k]` be the **maximum number of apples** that can be preserved in the **subtree of node s** while keeping atmost `k` branches.  
 
 - If `k = 0`, meaning **no branches are allowed**, then `dp[s][0] = 0` since no apples can be taken.  
 - If `s` is a **leaf node**, then `dp[s][k] = 0` because we cannot preserve branches beyond its parent.  
@@ -351,7 +351,7 @@ Let `dp[s][k]` be the **maximum number of apples** that can be preserved in the 
 
 ```cpp
 const int N = 105;
-int dp[N][N];  // dp[s][k] = maximum number of apple can be preserved in the subtree of s, keeping k branches
+int dp[N][N];  // dp[s][k] = maximum number of apple can be preserved in the subtree of s, keeping atmost k branches
 vector<pair<int,int>> graph[N];
 
 int dfs(int s, int par, int k)
