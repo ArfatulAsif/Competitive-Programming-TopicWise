@@ -183,17 +183,341 @@ int32_t main()
 ```
 
 
+<br>
+<br>
+<br>
+
+# DP on NOT DAG Problems:
+<br>
+
+## Problem 1: Visiting Friends  
+[CodeChef - Visiting Friends](https://www.codechef.com/problems/MCO16405)  
+
+Fluffy the squirrel lives in a city with n towns and m uni-directional roads. Each town i has c_i inhabitants. Starting from any town i, Fluffy can travel **along the roads** for as long as possible, aiming to maximize the number of distinct people he visits, including the inhabitants of town i itself. 
+
+
+**Solution strategy: Converting to a DAG:**
+Since the graph may contain cycles, we cannot directly apply DP on it. Instead, we must first convert the directed graph into a DAG by identifying its strongly connected components (SCCs) and then apply DP on the resulting DAG to compute the maximum number of people Fluffy can visit from each town.  
+
+### DP State, dp[v]:  
+
+- `dp[v]` : represents the maximum number of people Fluffy can meet if he starts from SCC `v` in the DAG.  
+
+- Since an SCC forms a cycle, all nodes within the same SCC are considered as a single node in the DAG. The population of an SCC is the sum of the populations of all towns within it.  
+
+- `Transition` : Fluffy can move from SCC `v` to SCC `child` if there is a directed edge from `v` to `child` in the DAG. The optimal value for dp[v] is obtained by taking the maximum `dp[child]` value among all reachable child SCCs.
+
+### Solution  
+
+```cpp
+const int N = 1e5+100;
+vector<int>graph[N];
+vector<int>Rgraph[N];
+bool vis1[N];
+bool vis2[N];
+int group_id[N];
+vector<int>forder;
+int DAG_val[N];
+int ara[N];
+vector<int>DAG[N];
+
+void dfs1(int s)
+{
+        vis1[s] = true;
+        for(auto child : graph[s])
+        {
+                if(vis1[child])
+                {
+                        continue;
+                }
+                dfs1(child);
+        }
+        forder.push_back(s);
+}
+
+void dfs2(int s , int no)
+{
+        vis2[s] = true;
+        group_id[s] = no;
+        for(auto child : Rgraph[s])
+        {
+                if(vis2[child])
+                {
+                        continue;
+                }
+                dfs2(child , no);
+        }
+}
+
+int dp[N]; // dp[v] = maximum amount of people that I can meet, if I start from SCC v in the DAG
+
+int dfs_on_dag(int s)
+{
+        if(dp[s] != -1)
+        {
+                return dp[s];
+        }
+        dp[s] = DAG_val[s];
+        int ret = 0;
+        for(auto child : DAG[s])
+        {
+                ret = max(ret, dfs_on_dag(child));
+        }
+        return dp[s] += ret;
+}
+
+int32_t main()
+{
+        ios::sync_with_stdio(0);
+        cin.tie(0);
+        int n,m;
+        cin>>n>>m;
+
+        for(int i=1;i<=n;i++)
+        {
+                cin>>ara[i];
+        }
+
+        for(int i=0;i<m;i++)
+        {
+                int x,y;
+                cin>>x>>y;
+                graph[x].push_back(y);
+                Rgraph[y].push_back(x);
+        }
+
+        for(int i=1;i<=n;i++)
+        {
+                if(vis1[i]==false)
+                {
+                        dfs1(i);
+                }
+        }
+
+        reverse(forder.begin(), forder.end());
+        int no = 1;
+        for(auto x : forder)
+        {
+                if(vis2[x]==false)
+                {
+                        dfs2(x , no);
+                        no++;
+                }
+        }
+
+        for(int i=1;i<=n;i++)
+        {
+                for(auto child : graph[i])
+                {
+                        if(group_id[i]!=group_id[child])
+                        {
+                                DAG[group_id[i]].push_back(group_id[child]);
+                        }
+                }
+        }
+
+        for(int i=1;i<=n;i++)
+        {
+                DAG_val[group_id[i]] += ara[i];
+        }
+
+        memset(dp, -1, sizeof(dp));
+
+        for(int i=1;i<=n;i++)
+        {
+                cout<<dfs_on_dag(group_id[i])<<" ";
+        }
+        cout<<endl;
+}
+```
+
+
+<br>
+<br>
+<br>
 
 
 
+# A Special DP on Directed Graph problem: 
+
+[DAGCNT2 - Counting in a DAG](https://www.spoj.com/problems/DAGCNT2/)
 
 
+You are given a weighted DAG. For each vertex, calculate the sum of the weights of the vertices within its reach (including itself).
 
 
+## Why it is a special dp on directed graph problem?:
+
+This is a special DP problem on a directed graph. Here, we are not going **along a path**; rather, we need to consider all vertices that are reachable. Traditional DP introduces overcounting in this problem.
+
+For example, consider the following code:
+
+```cpp
+const int N = 3e4;
+vector<int> graph[N];
+int ara[N];
+int dp[N]; // dp[v] = total sum achievable starting from node v...
+
+int dfs(int s)
+{
+    if(dp[s] != -1)
+    {
+        return dp[s];
+    }
+
+    dp[s] = ara[s];
+
+    for(auto child : graph[s])
+    {
+        dp[s] += dfs(child);
+    }
+
+    return dp[s];
+}
+
+```
+
+<br>
+
+Directly using DP will not work here. This is because we are calculating the sum of the weights of the vertices within its reach. It's not like calculating or following **along-path** that maximizes, minimizes, or counts anything. 
+
+Consider the following test case:
+
+```
+1
+5 5
+1 2 3 4 5
+1 2
+1 3
+2 4
+3 4
+4 5
+
+```
+
+In this case, for `dp[1]`, which is calculated as `dp[1] += dp[2] + dp[3]`, but `dp[2] += dp[4] + dp[5]`, and `dp[3] += dp[4] + dp[5]`, so for `dp[1]`;  `dp[4]` and `dp[5]` are calculated twice.
+
+**This issue arises because traditional DP doesn’t account for the fact that vertices can be reachable from multiple other vertices, which leads to overcounting.**
+
+To handle this, we use a special **Bitmask** approach with `bitset<>` to find all the vertices that are reachable from a given vertex. We calculate the reachable vertices (`dp_reach`) by maintaining the topological order of the graph. This ensures we process vertices in a way that respects their **dependencies** ( dependencies = which vertex should we calculate before which vertex).
 
 
+<br>
 
 
+## Solution: 
+
+Since, this is not just a **along-path** problem, as vertices can be reached from multiple directions, leading to repeated calculations. The traditional DP approach would cause overcounting.
+
+To handle this, a **Bitmask** approach with `bitset<>` is used to track the vertices reachable from each vertex. The solution also employs **topological sorting** to process vertices in the correct order of dependencies, ensuring that each vertex is processed only after all of its **predecessors** have been processed.
+
+## DP State dp_reach[v]:
+
+-   `dp_reach[v]`: A `bitset` representing all the vertices reachable from vertex `v`. This includes vertex `v` itself.
+
+
+## Solution: 
+
+```cpp
+const int N = 2e4 + 100;
+vector<int> graph[N];
+int ara[N], in[N], sum[N];
+vector<bitset<N + 1>> dp_reach(N + 1, bitset<N + 1>());
+queue<int> q;
+vector<int> topo;
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        
+        for (int i = 1; i <= n; i++) {
+            graph[i].clear();
+            cin >> ara[i];
+            sum[i] = 0;
+            dp_reach[i].set(i); // Initially, each node can reach itself
+        }
+
+        for (int i = 0; i < m; i++) {
+            int x, y;
+            cin >> x >> y;
+            graph[x].push_back(y);
+            in[y]++;
+            dp_reach[x].set(y); // x can directly reach y
+        }
+
+        for (int i = 1; i <= n; i++) {
+            if (in[i] == 0) q.push(i);
+        }
+
+        while (!q.empty()) {
+            int node = q.front();
+            q.pop();
+            topo.push_back(node);
+            for (int neighbor : graph[node]) {
+                in[neighbor]--;
+                if (in[neighbor] == 0) q.push(neighbor);
+            }
+        }
+
+        // Reverse the topological order
+        reverse(topo.begin(), topo.end());
+
+        /*
+        Now from reverse topo order, we build up the reach dp array, why? it should be obvious,
+
+        Consider this directed graph,
+       		1 2
+       		1 3 
+       		2 4 
+       		3 4 
+       		4 5
+		
+	     Here, for dp_reach[1], we calculate it,,
+        dp_reach[1] |= dp_reach[2], dp_reach[1] |= dp_reach[3].
+        
+        But for this, we need to calculate dp_reach[2] and dp_reach[3] before.
+
+        Now in which order we follow to calculate dp_reach? For example, here vertex 1 is calculated from 2 and 3.
+
+        That’s when topological order takes place.
+
+        We follow reverse topo order to build up the dp_reach, because it will maintain perfect dp_reach dependency.
+        */
+
+
+        for (int x : topo) {
+            for (int child : graph[x]) {
+                dp_reach[x] |= dp_reach[child]; // x can reach all vertices that child can reach
+            }
+        }
+
+        // Calculate the sum of weights for each vertex based on reachable vertices
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (dp_reach[i].test(j)) {
+                    sum[i] += ara[j]; // Add the weight of the reachable vertex
+                }
+            }
+        }
+
+        // Output the result
+        for (int i = 1; i <= n; i++) {
+            cout << sum[i] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+
+```
 
 
 
