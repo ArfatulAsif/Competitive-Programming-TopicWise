@@ -14,3 +14,31 @@ Since most of the beginner problems I have solved focus on directed graphs, this
 
 # DP on Directed Graph
 
+<br>
+
+## DP on DAG (Directed Acyclic Graph)  
+
+DP on a DAG is relatively straightforward. It follows a recursive DP approach, treating vertices as states. Since there are no cycles, there is no concern about infinite loops or overcounting when computing values for maximization, minimization, or counting paths. The DAG structure ensures that each state is processed in a well-defined order.
+
+## DP on Directed Graph (Not a DAG)  
+
+In this case, cycles or strongly connected components (SCCs) may exist, which prevents the direct use of a recursive DP approach. Traditional DP on graphs relies on a clear dependency order, but cycles create a looping structure that causes issues. Consider the following example:  
+
+1 ← 4  
+↓    ↑  
+2 → 3  
+
+Here, dp[1] depends on dp[2], dp[2] depends on dp[3], dp[3] depends on dp[4], and dp[4] again depends on dp[1], forming a cycle. This cycle prevents a straightforward DP approach from working correctly.  
+
+To handle this, we first convert the directed graph into a **DAG** using Kosaraju's or Tarjan’s algorithm to identify SCCs. Each **SCC** in the DAG can then be treated as a **single node**, allowing us to apply DP for **along-path** type calculations.
+
+
+
+
+
+
+
+
+
+
+
