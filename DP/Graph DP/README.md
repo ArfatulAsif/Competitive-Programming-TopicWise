@@ -18,7 +18,7 @@ Since most of the beginner problems I have solved focus on directed graphs, this
 
 - ## DP on DAG (Directed Acyclic Graph): 
 
-DP on a DAG is relatively straightforward. It follows a recursive DP approach, treating vertices as states. Since there are no cycles, there is no concern about infinite loops or overcounting when computing values for maximization, minimization, or counting paths. The DAG structure ensures that each state is processed in a well-defined order.
+DP on a DAG is relatively straightforward. It follows a recursive DP approach, treating vertices as states. Since there are **no cycles**, there is no concern about infinite loops or overcounting when computing values for maximization, minimization, or counting paths. The DAG structure ensures that each state is processed in a well-defined order.
 
 - ## DP on Not a DAG (Not a Directed Acyclic Graph):   
 
