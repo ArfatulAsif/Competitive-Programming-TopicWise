@@ -426,7 +426,7 @@ vector<bitset<N + 1>> dp_reach(N + 1, bitset<N + 1>());
 queue<int> q;
 vector<int> topo;
 
-int main() {
+int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
@@ -441,6 +441,8 @@ int main() {
             graph[i].clear();
             cin >> ara[i];
             sum[i] = 0;
+            dp_reach[i] = bitset<N+1>();
+             
             dp_reach[i].set(i); // Initially, each node can reach itself
         }
 
@@ -473,13 +475,13 @@ int main() {
         Now from reverse topo order, we build up the reach dp array, why? it should be obvious,
 
         Consider this directed graph,
-       		1 2
-       		1 3 
-       		2 4 
-       		3 4 
-       		4 5
-		
-	     Here, for dp_reach[1], we calculate it,,
+                1 2
+                1 3 
+                2 4 
+                3 4 
+                4 5
+                
+             Here, for dp_reach[1], we calculate it,,
         dp_reach[1] |= dp_reach[2], dp_reach[1] |= dp_reach[3].
         
         But for this, we need to calculate dp_reach[2] and dp_reach[3] before.
