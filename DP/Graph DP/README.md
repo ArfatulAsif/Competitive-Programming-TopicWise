@@ -520,7 +520,7 @@ int32_t main() {
 }
 
 ```
-
+**If the directed graph was not a **DAG**. ie. the problem was for any directed graph, We would have to convert the directed graph to a **DAG**. Then we can similarly apply this **bitmask** based reachable DP.**
 
 
 
