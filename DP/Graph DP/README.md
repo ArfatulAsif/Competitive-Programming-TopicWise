@@ -525,6 +525,135 @@ int32_t main() {
 
 
 
+---
+
+# A special DP on NOT a DAG problem 
+
+## Problem Statement:
+You are given a directed graph with `N` vertices, labeled from 1 to `N`. The edges are represented by a matrix `C` where each element `C[i][j]` is either a lowercase English letter or `-`.
+
+- If `C[i][j]` is a lowercase letter, there is exactly one directed edge from vertex `i` to vertex `j` labeled `C[i][j]`.
+- If `C[i][j]` is `-`, there is no edge from vertex `i` to vertex `j`.
+
+You need to answer the following query for each pair `(i, j)`:
+- **Among all (not necessarily simple) paths from vertex `i` to vertex `j`, where the concatenation of the edge labels forms a palindrome, what is the length of the shortest such path?**
+- If no such path exists, return `-1`.
+
+
+## Solution Explanation:
+
+To solve this problem, we use a **Breadth-First Search (BFS)** approach with dynamic programming (DP). The idea is to maintain a DP table where `dp[i][j]` represents the minimum length of a palindrome path from vertex `i` to vertex `j`.
+
+**DP States:**` dp[i][j]` represents the minimum length of a palindrome path from vertex `i` to vertex `j`.
+
+**Step-by-step approach:**
+
+1. **Initialization:**
+   - We initialize a DP table `dp` where `dp[i][j]` is set to infinity (`inf`) for all pairs of vertices except the diagonal (`i == j`), which is set to `0` (indicating no edge needed to form a palindrome path from a vertex to itself).
+   - We use a queue `q` to store pairs of vertices that can potentially form a palindrome path.
+
+2. **Process Direct Edges:**
+   - For each pair of vertices `(i, j)`, if there is a direct edge from `i` to `j` with a label, set `dp[i][j] = 1` (a single edge forms a palindrome if the label is identical when traversed in reverse).
+
+3. **BFS Search:**
+   - We then perform BFS from all pairs of vertices that have already been processed to find if longer palindrome paths can be formed by connecting two vertices through intermediate vertices.
+   - If `graph[i][x] == graph[y][j]` and both `graph[i][x]` and `graph[y][j]` are not `-`, it means the edge labels from `i` to `x` and from `y` to `j` can form a palindrome when added to the path, so we update `dp[i][j]`.
+
+4. **Final Answer:**
+   - After completing the BFS, the `dp[i][j]` table will hold the minimum length of the palindrome path for each pair `(i, j)`. If a path doesn't exist, `dp[i][j]` will still be `inf`, and we print `-1` for such cases.
+
+---
+
+### Solution Code:
+
+```cpp
+const int N = 105;
+const int inf = 1e9;  // Use a large number for infinity
+char graph[N][N];  
+int dp[N][N];    // dp[i][j] = minimum length of palindrome from i to j
+
+int32_t main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    queue<pair<int, int>> q;
+
+    int n;
+    cin >> n;
+
+    // Read the graph matrix
+    for (int i = 1; i <= n; i++)
+    {
+        q.push({i, i});
+        for (int j = 1; j <= n; j++)
+        {
+            dp[i][j] = inf;  // Initialize all distances to infinity
+            cin >> graph[i][j];  // Read each edge label or '-'
+        }
+    }
+
+    // Process the direct edges
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            if (i == j)  // No path needed for same vertex
+            {
+                dp[i][j] = 0;
+                q.push({i, j});
+            }
+            else if (graph[i][j] != '-')  // If there is an edge
+            {
+                dp[i][j] = 1;  // Direct edge forms a palindrome of length 1
+                q.push({i, j});
+            }
+        }
+    }
+
+    // Perform BFS to find shortest palindrome paths
+    while (!q.empty())
+    {
+        auto [x, y] = q.front();  // Get current pair (x, y) from the queue
+        q.pop();
+
+        for (int i = 1; i <= n; i++)  // For each vertex pair (i, j)
+        {
+            for (int j = 1; j <= n; j++)
+            {
+                if (dp[i][j] != inf)  // If dp[i][j] is already calculated
+                    continue;
+
+                // Check if we can form a palindrome path by adding edges
+                if (graph[i][x] == graph[y][j] && graph[i][x] != '-')
+                {
+                    dp[i][j] = dp[x][y] + 2;  // Update the palindrome path length
+                    q.push({i, j});  // Push to queue for further exploration
+                }
+            }
+        }
+    }
+
+    // Output the result
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            if (dp[i][j] == inf)  // If no palindrome path exists
+            {
+                cout << -1 << " ";
+            }
+            else
+            {
+                cout << dp[i][j] << " ";  // Print the length of the palindrome path
+            }
+        }
+        cout << endl;
+    }
+
+}
+```
+
 
 
 
