@@ -316,7 +316,7 @@ public:
 The demons have captured the princess and imprisoned her in the bottom-right corner of a dungeon. The knight starts in the top-left room and must navigate through the dungeon to rescue the princess. Some rooms are guarded by demons (negative values), some contain magic orbs (positive values), and others are empty (zero). The knight can only move right or downward. The task is to determine the knight’s minimum initial health such that he can reach the princess without his health dropping to zero or below.
 
 ### DP States  
-**dp[i][j]**: Minimum health required to reach the princess from cell (i,j).
+**dp[i][j]**: Minimum health required to reach the princess, ie from cell (i,j) to (n-1,m-1).
 
 ### Code
 
