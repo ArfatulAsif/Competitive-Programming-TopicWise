@@ -4,19 +4,25 @@
 
 Dynamic Programming on a grid is quite simple. Since DP states correspond to grid cells, for Grid[i][j], we define dp[i][j] accordingly. Below are the two main approaches used for solving grid-based DP problems.
 
-## Bottom-Up Approach  
+<br>
+
+## Bottom-Up Approach (Most common):  
 The DP state represents:  
 
 **`dp[i][j] =`  from cell (0,0) to (i,j) minimum/maximum/count of things.**
 
-## Top-Down Approach  
+## Top-Down Approach :  
 The DP state represents:  
 
 **`dp[i][j] =` from cell (i,j) to (m,n) minimum/maximum/count of things.**  
 
 ---
+<br>
+<br>
 
 # Bottom-Up Problems Example  
+
+<br>
 
 ## 64. Minimum Path Sum  
 **Link:** [Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/description/?envType=problem-list-v2&envId=50izszui)  
@@ -62,6 +68,8 @@ public:
 
 ---
 
+<br>
+
 ## 62. Unique Paths  
 **Link:** [Unique Paths](https://leetcode.com/problems/unique-paths/description/?envType=problem-list-v2&envId=50izszui)  
 
@@ -100,6 +108,8 @@ public:
 ```
 
 ---
+
+<br>
 
 ## 63. Unique Paths II  
 **Link:** [Unique Paths II](https://leetcode.com/problems/unique-paths-ii/description/?envType=problem-list-v2&envId=50izszui)  
@@ -141,6 +151,8 @@ public:
 ```
 
 ---
+
+<br>
 
 ## 1594. Maximum Non-Negative Product in a Matrix  
 **Link:** [Maximum Non-Negative Product in a Matrix](https://leetcode.com/problems/maximum-non-negative-product-in-a-matrix/description/?envType=problem-list-v2&envId=2wfuhzoj)  
@@ -226,6 +238,8 @@ public:
 
 ---
 
+<br>
+
 ## 1301. Number of Paths with Max Score  
 **Link:** [Number of Paths with Max Score](https://leetcode.com/problems/number-of-paths-with-max-score/?envType=problem-list-v2&envId=2wfuhzoj)  
 
@@ -287,9 +301,12 @@ public:
 
 ```
 
+<br>
+<br>
 
 # Top-Down Problems Example 
 
+<br>
 
 ### 174. Dungeon Game  
 
@@ -345,10 +362,14 @@ public:
 };
 ```
 
+<br>
+<br>
 
 # Special type: Two persons moving at the same time in the grid
 
 ---
+
+<br>
 
 ### 741. Cherry Pickup [Type: Two person moving at the same time] 
 
@@ -427,6 +448,8 @@ public:
 ```
 
 ---
+
+<br>
 
 ### 1463. Cherry Pickup II [Type: Two person moving at the same time] 
 
