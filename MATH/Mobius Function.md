@@ -298,3 +298,7 @@ int32_t main()
 }
 ```
 
+<br>
+
+
+**The problem can be extended to find `triplets`, or `more`** 
