@@ -134,7 +134,7 @@ Using the **Inclusion-Exclusion Principle**, we subtract pairs with **gcd $> 1$*
 ### **Final Formula for Counting Coprime Pairs**  
 
 $$
-\sum_{d=1}^{\max_x} \mu(d) \times \frac{\text{cnt}(d) \times (\text{cnt}(d)-1)}{2}
+\frac{n(n-1)}{2} - \sum_{d=2}^{\max_x} \mu(d) \times \frac{\text{cnt}(d) \times (\text{cnt}(d)-1)}{2}
 $$
 
 where:  
