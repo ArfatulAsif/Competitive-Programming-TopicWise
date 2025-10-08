@@ -17,7 +17,7 @@ using namespace std;
 namespace __gnu_pbds{
           typedef tree<int,
                        null_type,
-                       less_equal<int>,
+                       less_equal<int>,    // in the previous template, just using less_equal in place of less , will do the trick.
                        rb_tree_tag,
                        tree_order_statistics_node_update> ordered_set;
 }
