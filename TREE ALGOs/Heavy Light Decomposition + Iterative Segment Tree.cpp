@@ -1,16 +1,5 @@
-//Intermediary
-//Young kid on the block
-//AIAsif try's Continuing the journey
-#include<bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-using namespace std;
-using namespace __gnu_pbds;
-#define endl "\n"
-#define inf 1000000000000000000
-//#define int long long int
-#define ordered_set tree< int, null_type, less<int>, rb_tree_tag,tree_order_statistics_node_update>
-     
+
+// https://cses.fi/problemset/result/15138196/
 
 
 const int N = 2e5+100;
@@ -203,17 +192,6 @@ int query(int l, int r)
 }
 
 
-void HLD()
-{
-
-        dfs(1,1);
-
-
-        dfs1(1,1);
-
-
-        dfs_hld(1,1);
-}
 
 
 int query_up(int l, int u)
@@ -260,6 +238,19 @@ void update_up(int u,int x)
         update(tin[u], x);
 }
 
+
+
+void HLD()
+{
+
+        dfs(1,1);
+
+
+        dfs1(1,1);
+
+
+        dfs_hld(1,1);
+}
 
 
 
