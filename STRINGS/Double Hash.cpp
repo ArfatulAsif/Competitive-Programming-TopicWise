@@ -87,7 +87,7 @@ struct DoubleHash
                 }
         }
 
-        pair<int, int> sub_string_hash(int i, int j) 
+        pair<int , int> sub_string_hash(int i , int j) 
         {
                 int hash1 = (H1[j+ 1]- H1[i] + Mod1) % Mod1;
 
