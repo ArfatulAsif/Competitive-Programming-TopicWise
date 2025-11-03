@@ -30,7 +30,7 @@ struct DoubleHash
                                 ans = (ans*a)%mod;
                         }
 
-                        a = (a * a) % mod;
+                        a = ( a * a) % mod;
                         
                         b >>= 1;
                 }
@@ -41,7 +41,7 @@ struct DoubleHash
         int inverse_modulo(int a, int mod) 
         {
 
-                return binexp(a, mod - 2, mod);
+                return binexp(a,mod - 2, mod);
         }
 
 
