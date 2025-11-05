@@ -1,2 +1,1 @@
-
-# Add hashing and kmp
+# Strings
