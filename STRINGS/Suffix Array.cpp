@@ -677,8 +677,8 @@ int32_t main()
 
 ================================== Longest Palindromic substring (LPS) ================
 
-s = s +"#"+rev(s) 
-finding max lcp of this string is the answer.
+// s = s +"#"+rev(s) 
+// finding max lcp of this string is the answer.
 
 	
 
