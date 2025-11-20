@@ -479,6 +479,158 @@ int numberWays(vector<vector<int>>& hats) {
 };
 ```
 
+<br>
+<br>
+
+## Submask Enumeration¶
+
+**https://cp-algorithms.com/algebra/all-submasks.html**
+
+### Enumerating all submasks of a given mask
+
+```cpp
+int s = m;
+
+while (s > 0)
+{
+ ... you can use s ...
+
+ s = (s-1) & m;
+
+}
+```
+
+**Iterating through all masks with their submasks. Complexity  O(3^n). Where if we had iterated from 1 to (1<<n) for every state, Complexity O(2^n * 2^n) or O(4^n).**
+
+
+### Problem: (U - Grouping atcoder)
+**https://atcoder.jp/contests/dp/tasks/dp_u**
+
+
+
+```cpp
+
+
+// iterating through submask = (3^n) complexty,   where if we iterate through all mask from 0 to 1<<n is (2^2n or 4^n)
+
+
+const int N = 16;
+int dp[17][(1<<N)+5];  // dp[group_no][visited_mask]
+int n;
+int ara[N][N];
+int Pre_Count[(1<<N)+5];  // Pre_Count[mask] = pre_computed Pre_Count
+
+int f(int group_no, int mask)
+{
+        if(group_no == n)
+        {
+                return 0;
+        }
+
+        if(dp[group_no][mask] != -inf)
+        {
+                return dp[group_no][mask];
+        }
+
+        int &ret = dp[group_no][mask];
+
+
+        ret = 0;
+
+        if(group_no == n-1)
+        {
+                return ret = Pre_Count[mask] +f(group_no+1, 0);
+
+        }
+
+
+        int s = mask;
+
+        ret = f(group_no+1, mask);
+
+
+        while(s > 0)
+        {
+                s = (s-1)&mask;
+
+                ret = max(ret, Pre_Count[s] + f(group_no+1, mask ^ s));
+        }
+
+
+        return ret;
+
+
+
+}
+
+
+int32_t main()
+{
+        ios::sync_with_stdio(0);
+        cin.tie(0);
+
+        cin>>n;
+
+        for(int i=0;i<n;i++)
+        {
+                for(int j=0;j<n;j++)
+                {
+                        cin>>ara[i][j];
+                }
+        }
+
+        for(int i=0;i<n;i++)
+        {
+                for(int j=0;j<= (1<<n);j++)
+                {
+                        dp[i][j] = -inf;
+                }
+        }
+
+
+        int mask = (1<<n)-1;
+
+        int s = mask;
+
+        while(s > 0)
+        {
+                vector<int>v;
+
+                for(int i=0;i<n;i++)
+                {
+                        if(s & (1<<i))
+                        {
+                                v.push_back(i);
+                        }
+                }
+
+
+                int cnt = 0;
+
+                for(int i=0;i<v.size();i++)
+                {
+                        for(int j=i+1;j<v.size();j++)
+                        {
+                                cnt += ara[v[i]][v[j]];
+                        }
+                }
+
+                Pre_Count[s] = cnt;
+
+                s = (s-1)&mask;
+
+        }
+
+
+        cout<<f(0, (1<<n)-1)<<endl;
+
+}
+```
+
+
+
+
+
 
 ---
 ## Problem List
