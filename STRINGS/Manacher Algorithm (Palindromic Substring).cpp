@@ -1,96 +1,124 @@
+// https://cses.fi/problemset/task/3138/
 
-// https://cses.fi/problemset/task/1111
-
-
-// Longest palindromic substring
-
-vector<int> manacher_odd(string s) 
+struct Manacher 
 {
-        int n = s.size();
+        vector<int> man;
+        int n;
 
-        s = "$" + s + "^";
-
-        vector<int> p(n + 2);
-
-        int l = 0, r = 1;
-
-        for(int i = 1; i <= n; i++) 
+        Manacher(const string& s) 
         {
-                p[i] = min(r - i, p[l + (r - i)]);
+                n = s.size();
+                if (n == 0) return;
 
-                while(s[i - p[i]] == s[i + p[i]]) 
+                int l = 0, r = -1;
+                vector<int> d1(n);
+
+                for (int i = 0; i < n; i++) 
                 {
-                        p[i]++;
+                        int k = i > r ? 1 : min(d1[l + r - i], r - i);
+                        while (i + k < n && i - k >= 0 && s[i + k] == s[i - k]) 
+                        {
+
+                                k++;
+                        }
+                        
+                        d1[i] = k--;
+
+                        if (i + k > r)
+                        {
+                                l = i - k, r = i + k;
+                        }
                 }
-                if(i + p[i] > r) 
+
+
+                l = 0, r = -1;
+                vector<int> d2(n);
+                for (int i = 0; i < n; i++) 
                 {
-                        l = i - p[i], r = i + p[i];
+                        int k = i > r ? 0 : min(d2[l + r - i + 1], r - i + 1); 
+
+                        k++;
+                        
+
+                        while (i + k <= n && i - k >= 0 && s[i + k - 1] == s[i - k])
+                        {
+                                k++;
+                        }
+
+                        d2[i] = --k;
+
+
+                        if (i + k - 1 > r) 
+                        {
+                                l = i - k;
+                                r = i + k - 1;
+                        }
                 }
+
+                
+                man.resize(2 * n - 1);
+
+                for (int i = 0; i < n; i++)
+                {
+                        man[2 * i] = 2 * d1[i] - 1;
+                }
+                for (int i = 0; i < n - 1; i++) 
+                {
+                        man[2 * i + 1] = 2 * d2[i + 1];
+                }
+        
         }
-        return vector<int>(begin(p) + 1, end(p) - 1);
-}
 
-vector<int> manacher(string s) 
-{
-        string t;
-        for(auto c: s) 
+        // Check if substring s[i..j] is a palindrome
+        bool isPalindrome(int i, int j) 
         {
-                t += string("#") + c;
-        }
-            
-        auto res = manacher_odd(t + "#");
-
-        return vector<int>(begin(res) + 1, end(res) - 1);
-
-
-}
-
-
-
-// p[i] = radious of the palindromic substring centered at i.
-
-
-pair<int, int> longest_palindrome_indices(string &s)
-{
-
-        vector<int>p = manacher(s);
-        int n = p.size();
-        int center = 0, radius = 0;
-
-        for(int i=0;i<n;i++)
-        {
-                if(p[i] > radius)
+                if (i > j)
                 {
-                        radius = p[i];
-                        center = i;
+                         return true;
                 }
+                return man[i + j] >= j - i + 1;
         }
 
-        int start = (center - radius) / 2;
-        int end = start+radius-1;
+        // Returns vector where ret[i] is the length of the longest palindrome
+        // ending at index i.
+        vector<int> getEndingLengths() 
+        {
+                if (n == 0) return {};
+                
+                vector<int> ret(n);
 
-        return {start+1, end};
+                ret[0] = 1;
+                for (int i = 1; i < n; i++) 
+                {
+                        ret[i] = min(ret[i - 1] + 2, i + 1);
+
+                        while (!isPalindrome(i - ret[i] + 1, i))
+                        {
+                                ret[i]--;
+                        }
+                }
+                return ret;
+        }
+};
 
 
-}
 
-
-
-
-
-
-int32_t main()
+int32_t main() 
 {
-        ios::sync_with_stdio(0);
-        cin.tie(0);
-
         string s;
         cin>>s;
+        
+        Manacher m(s);
 
-        auto x = longest_palindrome_indices(s);
+        vector<int> lengths = m.getEndingLengths();
 
-        cout<<s.substr(x.first, x.second-x.first+1)<<endl;
+        for(int i=0;i<s.size();i++)
+        {
+                cout<<lengths[i]<<" ";
+        }
 
+        cout<<endl;
+        
 
-
+        return 0;
 }
