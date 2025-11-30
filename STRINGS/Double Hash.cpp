@@ -116,7 +116,7 @@ struct DoubleHash
 
 
 
-================= Double Hash + Segment Tree ================
+================= Double Hash + Segment Tree   (single character change update) (palindrome check)  ================
 
 
 // https://cses.fi/problemset/task/2420
