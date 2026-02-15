@@ -627,6 +627,14 @@ int32_t main()
 }
 ```
 
+### More problem on Submask Iteration:
+
+1. https://leetcode.com/problems/minimum-incompatibility/description/?envType=problem-list-v2&envId=wwb6xbsg
+
+2. https://leetcode.com/problems/matchsticks-to-square/?envType=problem-list-v2&envId=wwb6xbsg
+
+3. https://leetcode.com/problems/fair-distribution-of-cookies/?envType=problem-list-v2&envId=wwb6xbsg
+
 
 
 
