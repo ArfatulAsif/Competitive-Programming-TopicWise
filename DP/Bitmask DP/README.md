@@ -482,7 +482,7 @@ int numberWays(vector<vector<int>>& hats) {
 <br>
 <br>
 
-## Submask Enumeration¶
+# Submask Enumeration¶ : VVV Important (3^n)
 
 **https://cp-algorithms.com/algebra/all-submasks.html**
 
