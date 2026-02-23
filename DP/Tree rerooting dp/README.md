@@ -6,7 +6,7 @@ For ANY reroot problem, the structure is always:
 
 ### 1️⃣ `dfs1(node, parent)`
 
-* Compute DP assuming tree rooted at 1.
+* Compute DP assuming tree rooted at 1. (Also this dp calculation process will be used in the reroooting function for reversing `from` and forwarding `to` node.
 * Only use subtree information.
 * Merge children into parent.
 
@@ -24,6 +24,7 @@ That’s the universal idea.
 
 As now `from` vertex is at the subtree of  `to`  vertex, where previously `to` was in the subtree of `from` . Now we have to remove `to` vertex's contribution from `from` vertex and add `from` vertex's contribution in the `to` vertex (after removal  of `to` s contribution from `from`).
 
+Look at dfs1, when calculating for dp[node], how transition is happening. same way reverse it for `from` node, and forward it for `to` node.
 
 
 
@@ -67,7 +68,138 @@ That is the entire philosophy of rerooting.
 
 # 🌳 Standard Rerooting DP Template (Tree)
 
-This is the classic structure used in most reroot problems. 
+
+**Problem** : Sum of distances from each node to all other node.
+
+```cpp
+
+const int N = 2e5+100;
+vector<int>graph[N];
+
+int dp[N];  
+int SZ[N];
+
+
+void dfs1(int node, int par)
+{
+       
+
+        dp[node] = 0;
+
+        SZ[node] = 1;
+
+        
+        for(auto child : graph[node])
+        {
+                if(child == par)
+                {
+                        continue;
+                }
+
+                dfs1(child, node);
+
+                dp[node] += (SZ[child] + dp[child]); // (for the edge node---child , contributions comes equals to SZ[child], ie number of nodes in the subtree of the child.
+
+                SZ[node] += SZ[child];
+
+                // Look at this transition, as in the reroot function, we will be undoing for `from` node and doing it for `to` node.
+
+        }
+
+       
+
+}
+
+
+
+void reroot(int from, int to) 
+{
+        dp[from] -= (dp[to] + SZ[to]);
+
+        SZ[from] -= SZ[to];
+
+        dp[to] += (dp[from] + SZ[from]);
+
+        SZ[to] += SZ[from];
+        
+
+}
+
+
+int ans[N];
+
+
+void dfs2(int node, int par)
+{
+        ans[node] = dp[node];
+
+        for(auto child : graph[node])
+        {
+                if(child == par)
+                {
+                        continue;
+                }
+
+                reroot(node, child);
+
+                dfs2(child, node);
+
+                reroot(child, node);
+
+        }
+}
+
+
+
+
+
+
+int32_t main()
+{
+        ios::sync_with_stdio(0);
+        cin.tie(0);
+
+        int n;
+        cin>>n;
+
+
+        for(int i=0;i < n-1;i++)
+        {
+                int x,y;
+                cin>>x>>y;
+
+                graph[x].push_back(y);
+
+                graph[y].push_back(x);
+        
+        }
+
+        dfs1(1,1);
+
+        dfs2(1,1);
+
+
+
+       
+
+        vector<int>v;
+
+        for(int i=1;i<=n;i++)
+        {
+                cout<<ans[i]<<endl;
+               
+        }
+
+
+}
+```
+
+
+---
+
+<br>
+
+
 
 **Problem:** Maximum distant from each node to any other node.
 
@@ -183,133 +315,6 @@ void dfs2(int node, int par)
     }
 }
 ```
-
----
-
-
-**Problem** : Sum of distances from each node to all other node.
-
-```cpp
-
-const int N = 2e5+100;
-vector<int>graph[N];
-
-int dp[N];  
-int SZ[N];
-
-
-void dfs1(int node, int par)
-{
-       
-
-        dp[node] = 0;
-
-        SZ[node] = 1;
-
-        
-        for(auto child : graph[node])
-        {
-                if(child == par)
-                {
-                        continue;
-                }
-
-                dfs1(child, node);
-
-                dp[node] += (SZ[child] + dp[child]); // (for the edge node---child , contributions comes equals to SZ[child], ie number of nodes in the subtree of the child.
-
-                SZ[node] += SZ[child]; 
-
-        }
-
-       
-
-}
-
-
-
-void reroot(int from, int to) 
-{
-        dp[from] -= (dp[to] + SZ[to]);
-
-        SZ[from] -= SZ[to];
-
-        dp[to] += (dp[from] + SZ[from]);
-
-        SZ[to] += SZ[from];
-        
-
-}
-
-
-int ans[N];
-
-
-void dfs2(int node, int par)
-{
-        ans[node] = dp[node];
-
-        for(auto child : graph[node])
-        {
-                if(child == par)
-                {
-                        continue;
-                }
-
-                reroot(node, child);
-
-                dfs2(child, node);
-
-                reroot(child, node);
-
-        }
-}
-
-
-
-
-
-
-int32_t main()
-{
-        ios::sync_with_stdio(0);
-        cin.tie(0);
-
-        int n;
-        cin>>n;
-
-
-        for(int i=0;i < n-1;i++)
-        {
-                int x,y;
-                cin>>x>>y;
-
-                graph[x].push_back(y);
-
-                graph[y].push_back(x);
-        
-        }
-
-        dfs1(1,1);
-
-        dfs2(1,1);
-
-
-
-       
-
-        vector<int>v;
-
-        for(int i=1;i<=n;i++)
-        {
-                cout<<ans[i]<<endl;
-               
-        }
-
-
-}
-```
-
 
 
 
