@@ -6,7 +6,7 @@ For ANY reroot problem, the structure is always:
 
 ### 1️⃣ `dfs1(node, parent)`
 
-* Compute DP assuming tree rooted at 1. (Also this dp calculation process will be used in the reroooting function for reversing `from` and forwarding `to` node.
+* Compute DP assuming tree rooted at 1. (Also this dp calculation process will be used in the reroooting function for reversing `from` and forwarding `to` node.)
 * Only use subtree information.
 * Merge children into parent.
 
