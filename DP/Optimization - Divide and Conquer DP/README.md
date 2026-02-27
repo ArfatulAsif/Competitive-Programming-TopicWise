@@ -33,6 +33,8 @@ This is called **monotonicity of decision points**.
 
 If this holds → we can reduce complexity significantly.
 
+**Also, if the problem is about K-partition type but the value of N, K is quite large O(KN^2) would give TLE, that means optimizations**
+
 ---
 
 # 2️⃣ Why Is Normal DP Slow?
