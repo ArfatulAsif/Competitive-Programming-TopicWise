@@ -1,6 +1,6 @@
 # 🚀 Divide & Conquer DP Optimization
 
-## Primarily for K - partition problems:
+## Primarily for K - partition problems: (Partitioning an array to k-segments or k-subarray)
 
 This is used to speed up transitions of this exact form:
 
