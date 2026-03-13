@@ -657,6 +657,10 @@ int32_t main()
 ```
 
 
+---
+
+## Look, All three code are for minimum dp, for maximum dp we need to do modification to both CHT and LiChaoTree implementation
+
 
 
 
