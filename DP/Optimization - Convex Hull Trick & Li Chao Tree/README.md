@@ -471,6 +471,8 @@ int32_t main()
 
 ## 3. Case Study: 2D State DP Optimization
 
+### We can solve K-partition dp problems too, where we generally had to apply Divide and conquer dp, if possible.
+
 ### Problem: SPOJ NKLEAVES
 
 In this problem, we are grouping elements into $K$ intervals. It introduces a 2D state $dp[i][kk]$, meaning we must maintain *multiple* CHT envelopes—one for each value of $kk$. Because weights are positive, the `pref[j]` prefix sum is strictly increasing (so $m_j = -pref[j]$ is monotonically decreasing), and the indices $x_i = i$ are strictly increasing. Deque CHT is highly efficient here.
