@@ -195,6 +195,64 @@ Each node in the segment tree represents an interval $[l, r]$ and stores exactly
 * **Addition:** When adding a new line, we evaluate it at the midpoint. If it's better than the node's current line, they are swapped. Since two lines can intersect at most once, the "losing" line can only be better on *one* half of the remaining interval. We recursively push the losing line down to the appropriate child (left or right).
 * **Querying:** To find the minimum for a specific $x$, we traverse the tree down to the leaf representing $x$. The optimal value is simply the minimum evaluated value among all lines stored on the path from the root to that leaf.
 
+
+
+
+## Visualization
+
+
+```text
+                              [0, 8)
+                             Line: L2
+                           (y = -x + 10)
+                          /             \
+                         /               \
+                  [0, 4)                   [4, 8)
+                 Line: L3                   null
+               (y = x + 2)
+                /       \
+               /         \
+           [0, 2)       [2, 4)
+          Line: L1       null
+        (y = 2x + 1)
+          /    \
+       null    null
+
+```
+
+#### Visualizing the Query for $x = 1$:
+
+When querying for the minimum at $x = 1$, you follow the path down the tree where $1$ falls into the range. You evaluate the stored line at each step and keep a running minimum:
+
+1. **Visit [0, 8):** * $x = 1$ is in the left half $[0, 4)$.
+* Evaluate L2 at $x = 1$: $-(1) + 10 = 9$.
+* **Current Min: 9**
+* *Move Left* ↙️
+
+
+2. **Visit [0, 4):**
+* $x = 1$ is in the left half $[0, 2)$.
+* Evaluate L3 at $x = 1$: $(1) + 2 = 3$.
+* **Current Min: min(9, 3) = 3**
+* *Move Left* ↙️
+
+
+3. **Visit [0, 2):**
+* $x = 1$ is in the right half $[1, 2)$. (Midpoint is 1).
+* Evaluate L1 at $x = 1$: $2(1) + 1 = 3$.
+* **Current Min: min(3, 3) = 3**
+* *Move Right* ↘️
+
+
+4. **Visit [1, 2) (Right child of [0, 2)):**
+* Node is `null`.
+* **Stop Search.**
+
+**Final Result:** The minimum value is **3**.
+
+
+
+
 ### Variable Name Convention:
 
 * `L`, `R`: The minimum and maximum possible values for the domain of $x$.
