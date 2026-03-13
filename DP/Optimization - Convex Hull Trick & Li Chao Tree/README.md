@@ -3,7 +3,7 @@
 In many Dynamic Programming problems, you will encounter a recurrence relation that looks like this:
 
 
-$$dp[i] = \min_{j < i} (m_j \cdot x_i + b_j) + C_i$$
+$$dp[i] = \min_{j < i} or \max_{j < i}  (m_j \cdot x_i + b_j) + C_i$$
 
 Where:
 
